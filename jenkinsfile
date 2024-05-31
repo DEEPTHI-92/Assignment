@@ -4,24 +4,22 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                // Add commands to run tests for both backend and frontend applications
-                // For example:
-                sh 'cd backend && npm install && npm test'
+                
                 sh 'cd frontend && npm install && npm test'
+                sh 'cd backend  && pip install -r dependencies.txt
+                sh 'python manage.py collectstatic --noinput'
             }
         }
         stage('Build') {
             steps {
-                // Add commands to build Docker images for both backend and frontend applications
-                // For example:
+                 
                 sh 'docker build -t your-backend-image backend/'
                 sh 'docker build -t your-frontend-image frontend/'
             }
         }
         stage('Deploy') {
             steps {
-                // Add commands to deploy Docker containers for both backend and frontend applications
-                // For example:
+               
                 sh 'docker run -d -p 8000:8000 your-backend-image'
                 sh 'docker run -d -p 3000:3000 your-frontend-image'
             }
